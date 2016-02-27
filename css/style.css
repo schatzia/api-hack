@@ -1,0 +1,82 @@
+html{
+	font-family: 'Roboto', Open Sans;
+	background-color: #cccccc;
+}
+input{
+	margin-right:20px;
+	height: 20px;
+	width: 180px;
+}
+label{
+	font-weight: bold;
+	font-size: 16px;
+}
+dl{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	height:200px;
+	background-color: #EAECEB;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+dd{
+	float: left;
+	width: 70%;
+	padding: 0;
+	margin: 0;
+	/* background-color: lightGrey; */
+}
+dt{
+	float: left;
+	width: 20%;
+	padding: 0;
+	margin: 0;
+	margin-left: 10px;
+	/* background-color: lightGrey; */
+}
+p{
+	margin: 0;
+	padding: 0;
+}
+.search{
+	background-color: #e06665;
+	margin: 0;
+	padding: 10px;
+	height: 300px;
+}
+.search-header, .results-header{
+	font-size: 28px;
+}
+.search-container{
+	margin-top: 100px;
+	text-align: center;
+}
+#submit{
+	width: 150px;
+	height: 30px;
+	background-color: #8b8b8b;
+	border: 1px solid #8b8b8b;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+}
+#submit:hover{
+	background-color: #cccccc;
+	border: 1px solid #cccccc;
+	color: #3b3b3b;
+}
+.results-container{
+	position: absolute;
+	top: 320px;
+	left: 300px;
+	width: 80%;
+}
+#results{
+	width: 80%;
+	margin: 0;
+}
+.hidden {
+	display: none;
+}

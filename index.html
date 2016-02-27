@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Find your dream job!</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto|Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<section class="search">
+		<h1 class="search-header">Land your dream job!</h1>
+		<div class="search-container">
+			<form action="" id="search-form">
+				<label for="search-term">Description:</label>
+				<input type="text" name="search-term" class="search-term" />
+				<label for="search-location">Location:</label>
+				<input type="text" name="search-location" class="search-location" />
+				<input type="submit" id="submit" name="submit" value="Find jobs"/>
+			</form>
+		</div>
+		<div class="results-container">
+			<h1 class="results-header">Job findings</h1>
+			<div id="results"></div>
+		</div>
+		<div class="template hidden">
+			<dl class="result-job">
+				<dt>Title: 	</dt>
+					<dd class="title"><a href="" target="_blank"></a></dd>	
+				<dt>Created at: </dt>
+					<dd class="created-date"></dd>
+				<dt>Location: </dt>
+					<dd class="location"></dd>
+				<dt>Type: </dt>
+					<dd class="type"></dd>	
+				<dt>Description: </dt>
+					<dd class="description"></dd>
+				<dt>Company: </dt>
+					<dd class="company"></dd>
+			</dl>
+		<div class="error">
+			<p>Uh-oh! Something went wrong with your request. Here's what we know:</p>
+		</div>
+		</div>
+	</section>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
