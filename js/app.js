@@ -1,37 +1,54 @@
-var results = [
-  {
-    "id": "7e0fcb34-dbff-11e5-89f4-08dbf5ad7fb8",
-    "created_at": "Thu Feb 25 20:41:11 UTC 2016",
-    "title": "Application Developer",
-    "location": "Mountain View, CA",
-    "type": "Full Time",
-    "description": "<p>OUR MISSION IS TO BRING THE CERTAINTY OF SCIENCE TO THE ART OF BRAND MA…",
-    "how_to_apply": "<p><a href=\"http://grnh.se/yxfkp6\">http://grnh.se/yxfkp6…",
-    "company": "Tremor Video",
-    "company_url": "http://www.tremorvideo.com/en",
-    "company_logo": null,
-    "url": "http://jobs.github.com/positions/7e0fcb34-dbff-11e5-89f4-08dbf5ad7fb8"
-  },
-  {
-    "id": "812851d0-c393-11e5-85d4-7fd519e2facb",
-    "created_at": "Thu Feb 25 17:27:34 UTC 2016",
-    "title": "Software Engineer",
-    "location": "San Francisco ",
-    "type": "Full Time",
-    "description": "<p>1-Page is expanding our engineering team in San Francisco, where you’ll…",
-    "how_to_apply": "<p><a href=\"https://boards.greenhouse.io/1page/jobs/152683#.VqZse…",
-    "company": "1-Page",
-    "company_url": "http://1-page.com",
-    "company_logo": null,
-    "url": "http://jobs.github.com/positions/812851d0-c393-11e5-85d4-7fd519e2facb"
-  }
-];
+var showError = function(error){
+    var errorElem = $('.template .error').clone();
+    var errorText = '<p>' + error + '</p>';
+    errorElem.append(errorText);
+};
 
-var getJobs = function(results){
-$.each(results, function(index, value){
-            
-            var job = showJob(value);
+var showSearchResults = function(query, resultNum) {
+    var results = resultNum + ' results for <strong>' + query + '</strong>';
+    return results;
+};
+
+var getJobs = function(description, location){
+
+// the parameters we need to pass in our request to GitHub Jobs API
+    
+    var request = {
+        location: location,
+        description: description
+    };
+
+    $.ajax(
+    {
+        url: "http://jobs.github.com/positions.json",
+        data: request,
+        dataType: "jsonp",
+        type: "GET",
+        page: 2
+    })
+    .done(function(result){ //this waits for the ajax to return with a succesful promise object
+        if(!request.description){
+            var searchResults = showSearchResults('Location: ' + request.location, result.length);
+        }
+        else if (!request.location){
+            var searchResults = showSearchResults('Description: ' + request.description, result.length);
+        }
+        else{
+            var searchResults = showSearchResults('Description: ' 
+            + request.description +' + Location: ' + request.location, result.length);
+        }
+        
+
+        $('.search-results').html(searchResults);
+
+        $.each(result, function(i, item) {
+            var job = showJob(item);
             $('#results').append(job);
+        });
+    })
+    .fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
+        var errorElem = showError(error);
+        $('#results').append(errorElem);
     });
 };
 
@@ -55,7 +72,7 @@ var showJob = function(item){
     jobType.text(item.type);
 
     var jobDescription = jobItem.find('.description');
-    jobDescription.append(item.description);
+    jobDescription.append(item.description.substr(0,300)+'...');
 
     var jobCompany = jobItem.find('.company');
     jobCompany.text(item.company);
@@ -64,12 +81,11 @@ var showJob = function(item){
 };
 
 $(document).ready(function(){
-    /* $('#search-form').submit(function(event){
+    $('#search-form').submit(function(event){
         event.preventDefault();
         $('#results').html('');
         var description = $(this).find("input[name='search-term']").val();
         var location = $(this).find("input[name='search-location']").val();
         getJobs(description, location);
-        */
-        getJobs(results);
     });
+});
